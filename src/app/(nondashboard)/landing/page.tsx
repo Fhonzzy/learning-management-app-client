@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useGetCoursesQuery } from "@/state/api";
 import CourseCardSearch from "@/components/CourseCardSearch";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 const LoadingSkeleton = () => {
   return (
@@ -42,14 +43,16 @@ const LoadingSkeleton = () => {
 };
 
 const Landing = () => {
-  const router = useRouter()
+  const { user } = useUser();
+  const router = useRouter();
   const currentImage = useCarousel({ totalImages: 3 });
   const { data: courses, isLoading, isError } = useGetCoursesQuery({});
   const handleCourseClick = (courseId: string) => {
-    router.push(`/search?id=${courseId}`)
-  }
+    router.push(`/search?id=${courseId}`);
+  };
+  console.log(user);
 
-  if (isLoading) return <LoadingSkeleton />
+  if (isLoading) return <LoadingSkeleton />;
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -116,19 +119,20 @@ const Landing = () => {
 
         <div className="landing__courses">
           {courses &&
-            courses
-              .slice(0, 4)
-              .map((course, idx) => (
-                <motion.div
-                  key={course.courseId}
-                  initial={{ y: 50, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: idx * 0.2 }}
-                  viewport={{ amount: 0.4 }}
-                >
-                  <CourseCardSearch course={course} onClick={()=> handleCourseClick(course.courseId)}/>
-                </motion.div>
-              ))}
+            courses.slice(0, 4).map((course, idx) => (
+              <motion.div
+                key={course.courseId}
+                initial={{ y: 50, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: idx * 0.2 }}
+                viewport={{ amount: 0.4 }}
+              >
+                <CourseCardSearch
+                  course={course}
+                  onClick={() => handleCourseClick(course.courseId)}
+                />
+              </motion.div>
+            ))}
         </div>
       </motion.div>
     </motion.div>
