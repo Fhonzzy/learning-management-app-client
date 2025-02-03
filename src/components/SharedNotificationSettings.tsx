@@ -63,8 +63,8 @@ const SharedNotificationSettings = ({
         >
           <div className="notification-settings__fields">
             <CustomFormField
-              name="CourseNotification"
-              label="Course Notification"
+              name="courseNotifications"
+              label="Course Notifications"
               type="switch"
             />
             <CustomFormField
