@@ -15,6 +15,7 @@ import {
   BookOpen,
   Briefcase,
   DollarSign,
+  LogOut,
   PanelLeft,
   Settings,
   User,
@@ -33,15 +34,15 @@ const AppSidebar = () => {
   const navLinks = {
     student: [
       { icon: BookOpen, label: "Courses", href: "/user/courses" },
-      { icon: Briefcase, label: "Billing", href: "user/biling" },
-      { icon: User, label: "Profile", href: "user/profile" },
-      { icon: Settings, label: "Settings", href: "user/settings" },
+      { icon: Briefcase, label: "Billing", href: "/user/biling" },
+      { icon: User, label: "Profile", href: "/user/profile" },
+      { icon: Settings, label: "Settings", href: "/user/settings" },
     ],
     teacher: [
       { icon: BookOpen, label: "Courses", href: "/teacher/courses" },
-      { icon: DollarSign, label: "Billing", href: "teacher/biling" },
-      { icon: User, label: "Profile", href: "teacher/profile" },
-      { icon: Settings, label: "Settings", href: "teacher/settings" },
+      { icon: DollarSign, label: "Billing", href: "/teacher/biling" },
+      { icon: User, label: "Profile", href: "/teacher/profile" },
+      { icon: Settings, label: "Settings", href: "/teacher/settings" },
     ],
   };
   if (!isLoaded) return <Loading />;
@@ -132,7 +133,7 @@ const AppSidebar = () => {
                 onClick={() => signOut()}
                 className="app-sidebar__signout"
               >
-                {/* <LogOut className="mr-2 h-6 w-6" /> */}
+                <LogOut className="mr-2 h-6 w-6" />
                 <span>Sign out</span>
               </button>
             </SidebarMenuButton>

@@ -1,6 +1,7 @@
 "use client";
 import AppSidebar from "@/components/AppSidebar";
 import Loading from "@/components/Loading";
+import Navbar from "@/components/Navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
@@ -27,6 +28,7 @@ export default function DashboardLayout({
         <div className="dashboard__content">
           {/* chapter sidebar will go*/}
           <div className={cn("dashboard__main")} style={{ height: "100vh" }}>
+            <Navbar />
             <main className="dashboard__body">{children}</main>
           </div>
         </div>
