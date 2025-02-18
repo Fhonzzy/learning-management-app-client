@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
 import React from "react";
 
-const SelectedCourse = ({ course, handleRnrollNow }: SelectedCourseProps) => {
+const SelectedCourse = ({ course, handleEnrollNow }: SelectedCourseProps) => {
   return (
     <div className="selected-course">
       <div>
@@ -27,7 +27,7 @@ const SelectedCourse = ({ course, handleRnrollNow }: SelectedCourseProps) => {
             {formatPrice(course.price)}
           </span>
           <Button
-            onClick={() => handleRnrollNow(course.courseId)}
+            onClick={() => handleEnrollNow(course.courseId)}
             className="bg-primary-700 hover:bg-primary-600"
           >
             Enroll Now
