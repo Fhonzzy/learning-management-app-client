@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BaseQueryApi, FetchArgs } from "@reduxjs/toolkit/query";
 import { User } from "@clerk/nextjs/server";
-import { clerk } from "@clerk/clerk-js";
+import { Clerk } from "@clerk/clerk-js";
 import { toast } from "sonner";
 
 const customBaseQuery = async (
@@ -65,6 +65,7 @@ export const api = createApi({
       }),
       invalidatesTags: ["Users"],
     }),
+
     getCourses: build.query<Course[], { category?: string }>({
       query: ({ category }) => ({
         url: "courses",
@@ -75,6 +76,42 @@ export const api = createApi({
     getCourse: build.query<Course, string>({
       query: (id) => `courses/${id}`,
       providesTags: (result, error, id) => [{ type: "Courses", id }],
+    }),
+    createCourse: build.mutation<
+      Course,
+      { teacherId: string; teacherName: string }
+    >({
+      query: (body) => ({
+        url: "courses",
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Courses"],
+    }),
+    updateCourse: build.mutation<
+      Course,
+      { courseId: string; formData: FormData }
+    >({
+      query: ({ courseId, formData }) => ({
+        url: `courses/${courseId}`,
+        method: "PUT",
+        body: formData,
+      }),
+      invalidatesTags: (result, error, { courseId }) => [
+        {
+          type: "Courses",
+          id: courseId,
+        },
+      ],
+    }),
+
+    deleteCourse: build.mutation<
+      {message: string}, string>({
+      query: (courseId) => ({
+        url: `courses/${courseId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Courses"]
     }),
 
     createStripePaymentIntent: build.mutation<
@@ -87,6 +124,16 @@ export const api = createApi({
         body: { amount },
       }),
     }),
+    createTransaction: build.mutation<Transaction, Partial<Transaction>>({
+      query: (transaction) => ({
+        url: "transactions",
+        method: "POST",
+        body: transaction,
+      }),
+    }),
+    getTransactions: build.query<Transaction[], string>({
+      query: (userId) => `transactions?userId=${userId}`,
+    }),
   }),
 });
 
@@ -94,5 +141,10 @@ export const {
   useUpdateUserMutation,
   useGetCoursesQuery,
   useGetCourseQuery,
+  useDeleteCourseMutation,
   useCreateStripePaymentIntentMutation,
+  useCreateTransactionMutation,
+  useGetTransactionsQuery,
+  useCreateCourseMutation,
+  useUpdateCourseMutation,
 } = api;

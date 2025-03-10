@@ -12,7 +12,7 @@ const SignUpComponent = () => {
 
 
     const signInUrl = isCheckoutPage
-      ? `/checkout?step=1&id=${courseId}&showSignUp=false`
+      ? `/checkout?step=1&id=${courseId}&showSignUp=false` 
       : `/signin`;
   
     const getRedirectUrl = () => {

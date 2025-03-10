@@ -219,7 +219,7 @@ input[type="color"] {
 
 /* Completion Page */
 .completion {
-  @apply flex flex-col h-full items-center justify-center bg-background text-foreground;
+  @apply flex flex-col h-full items-center justify-center text-foreground;
 }
 
 .completion__content {
@@ -231,15 +231,19 @@ input[type="color"] {
 }
 
 .completion__title {
-  @apply text-4xl font-bold mb-3;
+  @apply text-4xl font-bold mb-3 text-white-50;
 }
 
 .completion__message {
-  @apply mb-1;
+  @apply mb-1 text-white-50;
 }
 
 .completion__action {
   @apply mt-2 flex justify-center bg-secondary-700 rounded-lg px-4 py-2 hover:bg-secondary-600 cursor-pointer;
+}
+
+.completion__support {
+  @apply text-white-50
 }
 
 /* Landing Page */
